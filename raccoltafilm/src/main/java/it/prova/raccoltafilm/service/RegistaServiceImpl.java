@@ -15,6 +15,8 @@ public class RegistaServiceImpl implements RegistaService {
 
 	private RegistaDAO registaDAO;
 
+	private FilmDAO filmDAO;
+
 	@Override
 	public void setRegistaDAO(RegistaDAO registaDAO) {
 		this.registaDAO = registaDAO;
@@ -128,10 +130,10 @@ public class RegistaServiceImpl implements RegistaService {
 		EntityManager entityManager = LocalEntityManagerFactoryListener.getEntityManager();
 
 		try {
-
 			entityManager.getTransaction().begin();
 
-			FilmDAO filmDAO = MyDaoFactory.getFilmDAOInstance();
+			filmDAO = MyDaoFactory.getFilmDAOInstance();
+			
 			filmDAO.setEntityManager(entityManager);
 
 			List<Film> lista = filmDAO.findFilmByRegista(registaInstance);
@@ -142,8 +144,6 @@ public class RegistaServiceImpl implements RegistaService {
 			}
 
 			registaDAO.setEntityManager(entityManager);
-
-			registaInstance = registaDAO.findWithFilms(registaInstance.getId());
 
 			registaDAO.delete(registaInstance);
 
