@@ -13,9 +13,9 @@ import it.prova.raccoltafilm.web.listener.LocalEntityManagerFactoryListener;
 
 public class RegistaServiceImpl implements RegistaService {
 
-	private RegistaDAO registaDAO;
-
 	private FilmDAO filmDAO;
+	
+	private RegistaDAO registaDAO;
 
 	@Override
 	public void setRegistaDAO(RegistaDAO registaDAO) {
@@ -130,6 +130,7 @@ public class RegistaServiceImpl implements RegistaService {
 		EntityManager entityManager = LocalEntityManagerFactoryListener.getEntityManager();
 
 		try {
+			
 			entityManager.getTransaction().begin();
 
 			filmDAO = MyDaoFactory.getFilmDAOInstance();
@@ -142,7 +143,6 @@ public class RegistaServiceImpl implements RegistaService {
 				filmItem.setRegista(null);
 				filmDAO.delete(filmItem);
 			}
-
 			registaDAO.setEntityManager(entityManager);
 
 			registaDAO.delete(registaInstance);
